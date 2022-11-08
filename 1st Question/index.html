@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Experiment - 8</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script>
+      var app = angular.module("app", []);
+      app.controller("ctrl", function ($scope) {
+        $scope.showResults = function () {
+          var emp_name = $scope.employeeName;
+          $scope.empName = emp_name;
+          var emp_ID = $scope.employeeID;
+          $scope.empID = emp_ID;
+          var salary_Date = $scope.inputDate;
+          $scope.salaryDate = new Date().toLocaleDateString(salary_Date);
+          // gross salary calculation
+          var basic_Salary = parseInt($scope.basicSalary);
+          var hra = parseInt($scope.houseRent);
+          var da = parseInt($scope.dearnessA);
+          var gross_Salary = basic_Salary + hra + da;
+          $scope.grossSalary = gross_Salary;
+          // tax amount
+          if (gross_Salary >= 20000 && gross_Salary < 40000) {
+            $scope.taxConducted = (5 / 100) * gross_Salary;
+            $scope.netSalary = gross_Salary - (5 / 100) * gross_Salary;
+          }
+          if (gross_Salary >= 40000 && gross_Salary < 60000) {
+            $scope.taxConducted = (10 / 100) * gross_Salary;
+            $scope.netSalary = gross_Salary - (10 / 100) * gross_Salary;
+          }
+          if (gross_Salary >= 60000 && gross_Salary < 80000) {
+            $scope.taxConducted = (15 / 100) * gross_Salary;
+            $scope.netSalary = gross_Salary - (15 / 100) * gross_Salary;
+          }
+          if (gross_Salary >= 80000) {
+            $scope.taxConducted = (20 / 100) * gross_Salary;
+            $scope.netSalary = gross_Salary - (20 / 100) * gross_Salary;
+          }
+        };
+      });
+    </script>
+  </head>
+  <body>
+    <div ng-app="app" ng-controller="ctrl">
+      <h1>Employee Payroll Calculator</h1>
+      <div class="inputs">
+        <label>Employee Name</label>
+        <input type="text" ng-model="employeeName" />
+
+        <label>Emp ID</label>
+        <input type="text" ng-model="employeeID" />
+
+        <label>Salary Date</label>
+        <input type="date" ng-model="inputDate" />
+
+        <label>Basic Salary</label>
+        <input type="text" ng-model="basicSalary" />
+
+        <label>House Rent Allocation (HRA)</label>
+        <input type="text" ng-model="houseRent" />
+
+        <label>Dearness Aloowance (DA)</label>
+        <input type="text" ng-model="dearnessA" />
+      </div>
+      <div class="button">
+        <button ng-click="showResults()">Calculate Salary</button>
+      </div>
+      <div class="outputs">
+        <h2>Salary Details</h2>
+
+        <div class="table">
+          <div class="table-row">
+            <p class="table-col">Employee Name</p>
+            <h3 ng-bind="empName" class="table-col"></h3>
+          </div>
+          <div class="table-row">
+            <p class="table-col">Employee ID</p>
+            <h3 ng-bind="empID" class="table-col"></h3>
+          </div>
+          <div class="table-row">
+            <p class="table-col">Salary Date</p>
+            <h3 ng-bind="salaryDate" class="table-col"></h3>
+          </div>
+          <div class="table-row">
+            <p class="table-col">Gross Salary</p>
+            <h3 ng-bind="grossSalary" class="table-col"></h3>
+          </div>
+          <div class="table-row">
+            <p class="table-col">Net Salary</p>
+            <h3 ng-bind="netSalary" class="table-col"></h3>
+          </div>
+          <div class="table-row">
+            <p class="table-col">Tax Conducted</p>
+            <h3 ng-bind="taxConducted" class="table-col"></h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

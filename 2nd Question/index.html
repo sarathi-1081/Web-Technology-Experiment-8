@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Inventory System</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script>
+      var app = angular.module("app", []);
+      app.controller("ctrl", [
+        "$scope",
+        function ($products) {
+          $products.addItem = function () {
+            if (
+              angular.isDefined($products.itemName) &&
+              $products.itemName != "" &&
+              $products.itemPrice != ""
+            ) {
+              $products.list.push({
+                itemName: $products.itemName,
+                itemPrice: $products.itemPrice,
+              });
+              $products.itemName = "";
+              $products.itemPrice = "";
+            }
+          };
+          $products.remove = function ($index) {
+            $products.list.splice($index, 1);
+          };
+        },
+      ]);
+    </script>
+  </head>
+  <body>
+    <div class="outer" ng-app="app" ng-controller="ctrl" ng-init="list=[]">
+      <h1>Product Inventory System</h1>
+      <div class="inputs">
+        <p>Enter the Product Name:</p>
+        <input type="text" ng-model="itemName" />
+        <p>Enter the Product Price:</p>
+        <input type="text" ng-model="itemPrice" />
+      </div>
+      <div class="button">
+        <button ng-click="addItem()" class="addButton">Add Product</button>
+      </div>
+      <hr />
+      <div class="outputs">
+        <table>
+          <thead>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Remove</th>
+          </thead>
+          <tr ng-repeat="i in list">
+            <td class="blue">{{i.itemName}}</td>
+            <td class="blue">{{i.itemPrice | currency:"₹":"0"}}</td>
+            <td>
+              <button ng-click="remove($index)" class="deleteButton">
+                [Delete]
+              </button>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

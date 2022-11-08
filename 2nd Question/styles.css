@@ -1,0 +1,74 @@
+body {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  text-align: center;
+  color: blue;
+}
+
+table,
+th,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+table {
+  width: 100%;
+}
+
+th {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+td {
+  padding: 10px;
+}
+
+thead {
+  background-color: green;
+}
+
+.blue,
+p {
+  color: blue;
+}
+
+.red {
+  color: red;
+}
+
+.addButton {
+  margin-top: 15px;
+  padding: 8px;
+}
+
+p {
+  font-size: 15px;
+}
+
+.deleteButton {
+  background-color: transparent;
+  border: 0px;
+  cursor: pointer;
+  color: red;
+}
+
+tr:nth-child(even) {
+  background-color: #ddd;
+}
+
+input {
+  height: 25px;
+  border-radius: 7px;
+}
